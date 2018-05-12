@@ -1,0 +1,44 @@
+{
+    "common":
+    {
+        "mongo_connect": "mongodb://{}@candidate.21.mongolayer.com:11857/app80974971",
+        "mongo_db": "app80974971",
+        "mongo_collection": "sensordata",
+        "log_dir": "C:\\Users\\boris\\Dropbox (Personal)\\iunu\\data\\n3xtgen\\test_runs\\logs",
+        "current_time_suffix": "_%Y_%m_%d_%H_%M_%S",
+        "creds": "boris:wDgXVLOScBCf0bml"
+    },
+
+    "nextg3nbuds": {
+        "model_file": "C:\\Users\\boris\\Dropbox (Personal)\\iunu\\data\\n3xtgen\\cnn\\model_unet_2018_04_03.hd5",
+        "title": "CV_bud_grid",
+        "facility": "sanysabel",
+        "images_dir": "C:\\Users\\boris\\Dropbox (Personal)\\iunu\\data\\n3xtgen\\test_runs\\images_",
+        "sample_size": 1000,
+        "days_delta": 2,
+        "verbosity": 1,
+        "img_shape": "1228, 921",
+        "activation": "zero",
+        "threshold": 5,
+        "download_only": true,
+        "out_file": "C:\\Users\\boris\\Dropbox (Personal)\\iunu\\data\\n3xtgen\\test_runs\\results.png"
+    },
+
+    "download_files":
+    {
+        "title": "CV_bud_grid",
+        "facility": "sanysabel",
+        "dir":"C:\\Users\\boris\\Dropbox (Personal)\\iunu\\data\\n3xtgen\\dark_source\\arc25",
+        "out_dir":"C:\\Users\\boris\\Dropbox (Personal)\\iunu\\data\\n3xtgen\\dark_source\\more_images",
+        "img_shape": "1228,921"
+    },
+    "select_images": {
+        "root_path": "C:\\Users\\boris\\Dropbox (Personal)\\iunu\\data\\n3xtgen",
+        "model_file": "cnn\\model_unet_2018_04_19.hd5",
+        "days": 5,
+        "spaces": ["house2", "house3", "house4", "house5"],
+        "total_samples": 100,
+        "filter_utc_hours": "(17, 22)",
+        "samples_per_dataset": 10
+    }
+}

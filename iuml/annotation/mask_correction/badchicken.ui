@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface>
+  <object class="tk.Toplevel" id="Toplevel_1">
+    <property name="background">#000000</property>
+    <property name="height">1080</property>
+    <property name="minsize">1920|1080</property>
+    <property name="padx">0</property>
+    <property name="relief">flat</property>
+    <property name="takefocus">false</property>
+    <property name="title" translatable="yes">BAD CHICKEN - binary mask correction utility T E A M H E L I O </property>
+    <property name="width">1920</property>
+    <child>
+      <object class="ttk.Frame" id="controlsframe">
+        <property name="height">40</property>
+        <property name="relief">raised</property>
+        <property name="width">1920</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">True</property>
+          <property name="row">0</property>
+        </layout>
+        <child>
+          <object class="pygubu.builder.widgets.pathchooserinput" id="FilePicker">
+            <property name="type">file</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="FilenameLabel">
+            <property name="text" translatable="yes">No Image Selected</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="SaveButton">
+            <property name="command">save_image</property>
+            <property name="text" translatable="yes">Save Changes</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.Message" id="Message_1">
+            <property name="width">350</property>
+            <layout>
+              <property name="column">3</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="Load_Image">
+            <property name="command">load</property>
+            <property name="text" translatable="yes">Load Image</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="ttk.Frame" id="canvasframe">
+        <property name="height">1040</property>
+        <property name="relief">raised</property>
+        <property name="width">1920</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="propagate">False</property>
+          <property name="row">1</property>
+        </layout>
+        <child>
+          <object class="tk.Canvas" id="ImgCanvas">
+            <property name="background">#000a00</property>
+            <property name="height">1040</property>
+            <property name="width">1760</property>
+            <bind add="True" handler="on_canvas_click" sequence="&lt;1&gt;" />
+            <layout>
+              <property name="column">1</property>
+              <property name="propagate">False</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="PrevButton">
+            <property name="command">prev_image</property>
+            <property name="text" translatable="yes">&lt;&lt;&lt;&lt;</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="NextButton">
+            <property name="command">next_image</property>
+            <property name="text" translatable="yes">&gt;&gt;&gt;&gt;</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="propagate">True</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

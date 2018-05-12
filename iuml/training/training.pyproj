@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3ea285e8-ad84-4d7b-8c4a-c00c5854cfd3}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>predict_generators.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <CommandLineArguments>--root-train "C:\Users\boris\Dropbox (Personal)\iunu\data\n3xtgen\retinanet\cnn" --net RetinaNet --epochs 15 --batch-size 2 --val-fraction 0.1 --root-tiles "C:\Users\boris\Dropbox (Personal)\iunu\data\n3xtgen\source\images" --annotations "C:\Users\boris\Dropbox (Personal)\iunu\data\n3xtgen\source\images\image_descriptors.json" --class-map "{0: 'negative', 1: 'positive'}" --tile 40 </CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="crf.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="detection\generator.py" />
+    <Compile Include="detection\jsongen.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="detection\initializers.py" />
+    <Compile Include="detection\layers.py" />
+    <Compile Include="detection\model.py" />
+    <Compile Include="detection\retinanet.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="detection\utils\anchors.py" />
+    <Compile Include="detection\utils\common.py" />
+    <Compile Include="detection\utils\eval.py" />
+    <Compile Include="detection\utils\image.py" />
+    <Compile Include="detection\utils\keras_version.py" />
+    <Compile Include="detection\utils\tensorflow_backend.py" />
+    <Compile Include="detection\utils\transform.py" />
+    <Compile Include="detection\utils\visualization.py" />
+    <Compile Include="detection\utils\__init__.py" />
+    <Compile Include="detection\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classifiers.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="detection\losses.py" />
+    <Compile Include="predict_generators.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="segmentation\masked_image.py" />
+    <Compile Include="segmentation\utils.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="train.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="run_trainer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="train_inception_base.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="segmentation\unet_small.py" />
+    <Compile Include="segmentation\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="utils.py" />
+    <Compile Include="__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="detection\" />
+    <Folder Include="detection\utils\" />
+    <Folder Include="segmentation\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>

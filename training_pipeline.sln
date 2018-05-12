@@ -1,0 +1,98 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "training", "iuml\training\training.pyproj", "{3EA285E8-AD84-4D7B-8C4A-C00C5854CFD3}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "tools", "iuml\tools\tools.pyproj", "{C078229C-D51A-47DF-AFC1-F48E9FA04687}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "embedding", "iuml\embedding\embedding.pyproj", "{44B03E1C-CB51-432D-8567-33B05F700EC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6E696CEC-0A3C-49AA-A9AF-06F76424053A}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		setup.py = setup.py
+		iuml\version.py = iuml\version.py
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "visuals", "visuals", "{F21CF6C2-DE2A-4BDF-B16B-6FF18DDA84C9}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "budFinder", "visuals\budFinder\budFinder.pyproj", "{D44B6A23-2B1B-4847-881C-2B8931403BD6}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "clusterChecker", "visuals\clusterChecker\clusterChecker.pyproj", "{37761CD9-D9E7-4BE3-8363-285978BCCE53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "annotation", "annotation", "{0F2D2541-2DE3-4622-940E-B4D979BDD5B7}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "gather_data", "iuml\annotation\gather_data\gather_data.pyproj", "{BFD216F9-45A8-45D7-8A93-8C98B30E3E04}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "spotchecker", "iuml\annotation\spotchecker\spotchecker.pyproj", "{B698BD7D-03D3-47D7-BD0C-CD100B8DD2C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "flows", "flows", "{93258006-4781-4BFA-AACD-600BF6A351C2}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "plant_knowledge", "flows\plant_knowledge\plant_knowledge.pyproj", "{F8DDB26C-8A42-4ECE-8716-09C2E1A5BBE7}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "tests", "flows\tests\tests.pyproj", "{15EFD748-A529-4B51-A1DF-84314820FC58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EA285E8-AD84-4D7B-8C4A-C00C5854CFD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EA285E8-AD84-4D7B-8C4A-C00C5854CFD3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3EA285E8-AD84-4D7B-8C4A-C00C5854CFD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EA285E8-AD84-4D7B-8C4A-C00C5854CFD3}.Release|x64.ActiveCfg = Release|Any CPU
+		{C078229C-D51A-47DF-AFC1-F48E9FA04687}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C078229C-D51A-47DF-AFC1-F48E9FA04687}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C078229C-D51A-47DF-AFC1-F48E9FA04687}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C078229C-D51A-47DF-AFC1-F48E9FA04687}.Release|x64.ActiveCfg = Release|Any CPU
+		{44B03E1C-CB51-432D-8567-33B05F700EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B03E1C-CB51-432D-8567-33B05F700EC7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{44B03E1C-CB51-432D-8567-33B05F700EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B03E1C-CB51-432D-8567-33B05F700EC7}.Release|x64.ActiveCfg = Release|Any CPU
+		{D44B6A23-2B1B-4847-881C-2B8931403BD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D44B6A23-2B1B-4847-881C-2B8931403BD6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D44B6A23-2B1B-4847-881C-2B8931403BD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D44B6A23-2B1B-4847-881C-2B8931403BD6}.Release|x64.ActiveCfg = Release|Any CPU
+		{37761CD9-D9E7-4BE3-8363-285978BCCE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37761CD9-D9E7-4BE3-8363-285978BCCE53}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{37761CD9-D9E7-4BE3-8363-285978BCCE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37761CD9-D9E7-4BE3-8363-285978BCCE53}.Release|x64.ActiveCfg = Release|Any CPU
+		{BFD216F9-45A8-45D7-8A93-8C98B30E3E04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFD216F9-45A8-45D7-8A93-8C98B30E3E04}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BFD216F9-45A8-45D7-8A93-8C98B30E3E04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFD216F9-45A8-45D7-8A93-8C98B30E3E04}.Release|x64.ActiveCfg = Release|Any CPU
+		{B698BD7D-03D3-47D7-BD0C-CD100B8DD2C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B698BD7D-03D3-47D7-BD0C-CD100B8DD2C9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B698BD7D-03D3-47D7-BD0C-CD100B8DD2C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B698BD7D-03D3-47D7-BD0C-CD100B8DD2C9}.Release|x64.ActiveCfg = Release|Any CPU
+		{F8DDB26C-8A42-4ECE-8716-09C2E1A5BBE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8DDB26C-8A42-4ECE-8716-09C2E1A5BBE7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F8DDB26C-8A42-4ECE-8716-09C2E1A5BBE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8DDB26C-8A42-4ECE-8716-09C2E1A5BBE7}.Release|x64.ActiveCfg = Release|Any CPU
+		{15EFD748-A529-4B51-A1DF-84314820FC58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15EFD748-A529-4B51-A1DF-84314820FC58}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{15EFD748-A529-4B51-A1DF-84314820FC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15EFD748-A529-4B51-A1DF-84314820FC58}.Release|x64.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D44B6A23-2B1B-4847-881C-2B8931403BD6} = {F21CF6C2-DE2A-4BDF-B16B-6FF18DDA84C9}
+		{37761CD9-D9E7-4BE3-8363-285978BCCE53} = {F21CF6C2-DE2A-4BDF-B16B-6FF18DDA84C9}
+		{0F2D2541-2DE3-4622-940E-B4D979BDD5B7} = {6E696CEC-0A3C-49AA-A9AF-06F76424053A}
+		{BFD216F9-45A8-45D7-8A93-8C98B30E3E04} = {0F2D2541-2DE3-4622-940E-B4D979BDD5B7}
+		{B698BD7D-03D3-47D7-BD0C-CD100B8DD2C9} = {0F2D2541-2DE3-4622-940E-B4D979BDD5B7}
+		{93258006-4781-4BFA-AACD-600BF6A351C2} = {6E696CEC-0A3C-49AA-A9AF-06F76424053A}
+		{F8DDB26C-8A42-4ECE-8716-09C2E1A5BBE7} = {93258006-4781-4BFA-AACD-600BF6A351C2}
+		{15EFD748-A529-4B51-A1DF-84314820FC58} = {93258006-4781-4BFA-AACD-600BF6A351C2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F15E1D7F-52CB-40FC-AA5D-FC337094F8A1}
+	EndGlobalSection
+EndGlobal

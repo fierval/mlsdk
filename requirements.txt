@@ -1,0 +1,11 @@
+matplotlib
+numpy
+pandas
+numba
+pydensecrf
+pygubu
+Keras
+tensorflow
+Image
+randomcolor
+scikit_learn

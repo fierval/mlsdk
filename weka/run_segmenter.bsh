@@ -1,0 +1,145 @@
+import ij.IJ;
+import ij.io.FileSaver;
+import ij.ImagePlus;
+import ij.process.ImageConverter;
+import ij.process.StackConverter;
+import trainableSegmentation.WekaSegmentation;
+import trainableSegmentation.Weka_Segmentation;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.commons.cli.*;		// command line argument processing
+import java.util.Collection;
+import java.io.File;
+
+
+cv_include_path = System.getenv( "WEKAINCLUDEFOLDER" );
+print( "run_segmenter.bsh - cv_include_path: " + cv_include_path );
+
+addClassPath( cv_include_path + "commons-cli-1.3.1.jar" );
+addClassPath( cv_include_path + "Trainable_Segmentation-3.2.20.jar" );
+addClassPath( cv_include_path + "IO_-3.0.1.jar" );
+addClassPath( cv_include_path + "weka.jar" );
+addClassPath( cv_include_path + "ij-1.51h.jar" );
+addClassPath( cv_include_path + "fiji-lib-2.1.1.jar" );
+addClassPath( cv_include_path + "imglib2-3.2.0.jar" );
+
+//new Weka_Segmentation();
+
+options = new Options();
+
+input_option = new Option( "i", "input", true, "input folder path" );
+input_option.setRequired( true );
+options.addOption( input_option );
+
+Option classifier_option = new Option( "c", "classifier", true, "classifier file path" );
+classifier_option.setRequired( true );
+options.addOption( classifier_option );
+
+Option output_option = new Option( "o", "output", true, "output folder path" );
+output_option.setRequired( true );
+options.addOption( output_option );
+
+Option force_option = new Option( "f", "force", false, "force segmentation even if a file is already there." );
+force_option.setRequired( false );
+options.addOption( force_option );
+
+
+CommandLineParser parser = new DefaultParser();
+HelpFormatter formatter = new HelpFormatter();
+CommandLine cmd;
+
+try {
+	cmd = parser.parse( options, bsh.args );
+} catch (ParseException e) {
+    print( "exception! - e: " + e ); }
+
+inputPath = cmd.getOptionValue( "input" );
+outputFilePath = cmd.getOptionValue( "output" );
+classifierFilePath = cmd.getOptionValue( "classifier" );
+suffix = cmd.getOptionValue( "suffix" );
+force = cmd.hasOption( "force" );
+
+if( suffix == null ) {
+    suffix = "";
+}
+
+
+print( "run_segmenter.bsh - inputPath: " + inputPath );
+print( "run_segmenter.bsh - classifierFilePath: " + classifierFilePath );
+print( "run_segmenter.bsh - suffix: " + suffix );
+print( "run_segmenter.bsh - force: " + force );
+
+
+inputThing = new File( inputPath );
+modelPath = new File( classifierFilePath );
+
+segmentator = new WekaSegmentation(false);
+
+print("loading classifier... " + modelPath.getCanonicalPath());
+segmentator.loadClassifier( modelPath.getCanonicalPath() );
+
+void processFile( File f ) {
+	print( "processFile()" );
+
+	filename = f.getName();
+
+    print( "run_segmenter.bsh - About to process - filename: " + filename );
+
+    outFilePath = outputFilePath + File.separator + filename;
+
+    print( "run_segmenter.bsh - outputFilePath: " + outputFilePath );
+    outFile = new File( outFilePath );
+
+    if( outFile.exists() && !force )
+    {
+        print( "run_segmenter.bsh - already Exists!" );
+    }
+    else
+    {
+        print( "run_segmenter.bsh - About to run WekaSegmentation." );
+
+        // try to read file as image
+        image = IJ.openImage( f.getCanonicalPath() );
+        if( image != null )
+        {
+            try
+            {
+                ImagePlus result = segmentator.applyClassifier(image, 0, false);
+
+                print("saving: " + outFilePath);
+                new FileSaver( result ).saveAsJpeg( outFilePath );
+
+	            // force garbage collection (important for large images)
+	            result = null;
+	            image = null;
+	            System.gc();
+            }
+            catch( e )
+            {
+                print(e);
+            }
+		}
+    }
+}
+
+
+if( inputThing.isDirectory() )
+{
+    allFiles = inputThing.listFiles();
+
+    print("running on a direcotry...");
+
+    for (f : allFiles)
+    {
+        processFile( f );
+    }
+}
+
+
+if( inputThing.isFile() )
+{
+    processFile( inputThing );
+}
+
+
+
