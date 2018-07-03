@@ -1,25 +1,25 @@
 import copy
-from iuml.training import *
-from iuml.training.segmentation import *
-from iuml.training.detection import *
+from ..training import *
+from ..training.segmentation import *
+from ..training.detection import *
 
 def create_trainer(net, root_train, **kwargs):
     '''
     Creates a trainer based on kwargs:
-        batch_size = 32, 
-        weights_file = None, 
-        epochs = 5, 
+        batch_size = 32,
+        weights_file = None,
+        epochs = 5,
         class_mode = 'binary',
     For Unet:
         images = subdirectory of images
         masks = subdirectory of masks
         img_shape = (width, height) of the image
     '''
-    
+
     allowed_trainers = {'Resnet50', 'VGG16', 'InceptionV3', 'Xception', 'Unet', 'RetinaNet'}
     if net not in allowed_trainers:
         raise ValueError("Model not recognized: {}".format(net))
-    
+
     params = kwargs
     if net == 'RetinaNet':
         params = copy.deepcopy(kwargs)

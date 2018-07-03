@@ -5,8 +5,8 @@ import cv2
 import random
 import numpy as np
 import glob
-import iuml.tools.validate as validate
-from iuml.tools.image_utils import get_image_files
+import ..tools.validate as validate
+from ..tools.image_utils import get_image_files
 import copy
 import math
 
@@ -73,7 +73,7 @@ class MaskedImageDataGenerator(image.Iterator):
         for i, idx in enumerate(index_array):
             img = cv2.imread(self.image_files[idx])
             mask = np.load(self.mask_files[idx])['labels']
-            
+
             img_name = get_file_name(self.image_files[idx])
             mask_name =  get_file_name(self.mask_files[idx])
 

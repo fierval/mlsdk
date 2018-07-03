@@ -10,20 +10,20 @@ from keras.optimizers import *
 
 import os
 import numpy as np
-from iuml.training.train import TrainClassifierBase
+from ..training.train import TrainClassifierBase
 from .masked_image import MaskedImageDataGenerator
-import iuml.tools.validate as validate
-from iuml.tools.image_utils import get_image_files
+import ...tools.validate as validate
+from ...tools.image_utils import get_image_files
 from sklearn.model_selection import train_test_split
 
-from iuml.training.utils import clean_training_validation_trees, create_preprocessing_config, load_normalization_dictionary
+from ..training.utils import clean_training_validation_trees, create_preprocessing_config, load_normalization_dictionary
 from .utils import *
 import math
 
 class Unet(TrainClassifierBase):
 
 
-    def __init__(self, root_folder, images_subfolder, masks_subfolder, 
+    def __init__(self, root_folder, images_subfolder, masks_subfolder,
                     batch_size = 1, weights_file = None,
                     preprocess_input = False,
                     model_file = None,
@@ -96,11 +96,11 @@ class Unet(TrainClassifierBase):
         image_files = get_image_files(os.path.join(data_root, self.images_folder))
         mask_files = get_image_files(os.path.join(data_root, self.masks_folder))
 
-        
+
         # Verify that files match
         im_files = {os.path.split(f)[1] for f in image_files}
         m_files = {os.path.split(f)[1] for f in mask_files}
-        
+
         # take symmetric difference. Shold be 0
         if len(im_files ^ m_files) != 0:
             raise ValueError('Masks files and images files do not match')
@@ -114,7 +114,7 @@ class Unet(TrainClassifierBase):
         clean_training_validation_trees(self.train_dir, self.valid_dir)
 
         if os.path.exists(self.preprocessing_file):
-            os.remove(self.preprocessing_file)        
+            os.remove(self.preprocessing_file)
 
         for dir in [self.train_dir, self.valid_dir]:
             for sub_dir in [self.images_folder, self.masks_folder]:
@@ -143,7 +143,7 @@ class Unet(TrainClassifierBase):
         self._validation_examples = len(test_images)
 
         # we will compute means and averages of the training set
-        # and store them for future use        
+        # and store them for future use
         if self.should_preprocess:
             self.normalization_dict = \
                 create_preprocessing_config(self.preprocessing_file, os.path.join(self.train_dir, self.images_folder))
@@ -289,7 +289,7 @@ class Unet(TrainClassifierBase):
         '''
         Preprocess images
         '''
-        
+
         def prep_input(x):
             im = x.astype(np.float32)
 
@@ -297,11 +297,11 @@ class Unet(TrainClassifierBase):
             im[:, :, 0] -= self.normalization_dict['means'][0]
             im[:, :, 1] -= self.normalization_dict['means'][1]
             im[:, :, 2] -= self.normalization_dict['means'][2]
-            
+
             im[:, :, 0] /= self.normalization_dict['stds'][0]
             im[:, :, 1] /= self.normalization_dict['stds'][1]
             im[:, :, 2] /= self.normalization_dict['stds'][2]
-            
+
             return im
 
         if self.should_preprocess:

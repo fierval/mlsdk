@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import cv2
 import glob
 import os
-import iuml.tools.validate as validate
+import .validate as validate
 import numpy as np
 import re
 
@@ -29,12 +29,12 @@ def copy_with_resize(src, dest, size = None, ratio = None):
         src - source path
         dest - destination path
         size = (width, height) target size
-        ratio = (width_ratio, height_ratio)  
-    '''    
+        ratio = (width_ratio, height_ratio)
+    '''
 
     validate.raise_if_not_exists(src)
     validate.create_if_not_exists(dest)
-    
+
     if size is None and ratio is None:
         raise ValueError('either size or ratio must be specified')
 
@@ -59,7 +59,7 @@ def copy_with_resize(src, dest, size = None, ratio = None):
 
 def convert_mask_fiji_to_class(src, dest):
     '''
-    Converts a directory of masks created by Fiji to 
+    Converts a directory of masks created by Fiji to
     a format expected by the SDK  (i.e.: each entry is a class)
     handling n-classes == 2 where green == 0 (background), red == 1
     '''
@@ -116,7 +116,7 @@ def convert_mask_fiji_to_classes_codebook(gray, classes):
 
     mask = gray.copy()
     for c, classs in zip(colors, cls):
-        mask[mask == c] = classs    
+        mask[mask == c] = classs
     return mask
 
 def erode_with_mask(gray, mask, kernel=(3,3), iterations = 1):
@@ -135,7 +135,7 @@ def erode_with_mask(gray, mask, kernel=(3,3), iterations = 1):
     im = np.where(mask > 0, np.ones_like(mask), np.zeros_like(mask)).astype(np.uint8)
 
     im = cv2.erode(im, np.ones(kernel), iterations = iterations)
-    
+
     res = gray.copy()
     res[mask > 0] = im[mask > 0]
     return res

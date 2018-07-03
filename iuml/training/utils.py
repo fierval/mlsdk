@@ -10,7 +10,7 @@ import shutil
 import keras
 import json
 import cv2
-from iuml.tools.image_utils import get_image_files
+from ..tools.image_utils import get_image_files
 import numpy as np
 
 def get_num_of_gpus():
@@ -18,12 +18,12 @@ def get_num_of_gpus():
     Returns True if Tensorflow can detect a GPU device
     '''
     devices = [dev.name for dev in device_lib.list_local_devices()]
-    
+
     total = 0
     for d in devices:
         matches = re.findall(r'gpu', d, re.IGNORECASE)
         if len(matches) > 0: total += 1
-    
+
     print("Found total {} GPUs".format(total))
     return total
 
@@ -34,9 +34,9 @@ def clean_training_validation_trees(train_data_root, validation_data_root):
     if os.path.exists(validation_data_root):
         print('removing validation...')
         shutil.rmtree(validation_data_root)
-    
+
     os.makedirs(validation_data_root)
-    
+
     if os.path.exists(train_data_root):
         print('removing training...')
         shutil.rmtree(train_data_root)
@@ -55,23 +55,23 @@ def split_training_validation_data(data_root, out_data_root, validate_fraction=0
 
     train_data_root = os.path.join(out_data_root, 'training')
     validation_data_root = os.path.join(out_data_root, 'validation')
-    
+
     if not (0 < validate_fraction < 1.0):
         raise ValueError("validate_to_train_ration should be between 0.0 and 1.0" )
-        
+
     clean_training_validation_trees(train_data_root, validation_data_root)
-        
+
     subfolder_candidates = glob.glob(os.path.join(data_root, "*"))
     subfolders = [d for d in subfolder_candidates if os.path.isdir(d)]
     class_names = [os.path.split(cn)[1] for cn in subfolders]
-    
+
     if len(subfolders) == 0:
         raise ValueError('No subfolders found. Perhaps {} does not exist'.format(train_data_root))
-        
+
     # This shuffles and then splits datasets
     # the output is indexes into the dataset being split
     rs = ShuffleSplit(n_splits=1, test_size=validate_fraction)
-    
+
     print("Creating splits...")
 
     total_train = 0
@@ -80,22 +80,22 @@ def split_training_validation_data(data_root, out_data_root, validate_fraction=0
     for s, cn in zip(subfolders, class_names):
         files = glob.glob1(s, '*.*')
         in_files = glob.glob(os.path.join(s, '*.*'))
-        
+
         splits = list(rs.split(files))[0]
 
         total_train += splits[0].shape[0]
         total_valid += splits[1].shape[0]
 
-        for dataset_path, split, name in zip([train_data_root, validation_data_root], splits, ['training', 'validation']):        
+        for dataset_path, split, name in zip([train_data_root, validation_data_root], splits, ['training', 'validation']):
             out_path = os.path.join(dataset_path, cn)
-            
+
             if not os.path.exists(out_path):
                 os.makedirs(out_path)
-                
+
             out_files = [os.path.join(out_path, files[idx]) for idx in split]
-            
+
             print('Creating {} dataset for class: {}'.format(name, cn))
-            
+
             for inf, outf in zip(in_files, out_files):
                 shutil.copyfile(inf, outf)
 
@@ -142,7 +142,7 @@ def create_preprocessing_config(config_file, images_dir):
     print("loaded {} images".format(len(ims)))
     means = np.mean(ims, axis=(0, 1, 2))
     stds = np.std(ims, axis=(0, 1, 2))
-    
+
     print("computed means & stds")
 
     normalization_dictionary = {'means': list(np.squeeze(means)), 'stds': list(np.squeeze(stds))}
@@ -167,7 +167,7 @@ def load_normalization_dictionary(config_file):
 
     with open(config_file, 'r') as conf:
         dict = json.load(conf)
-    
+
     return transform_normalization_dictionary(dict)
 
 def transform_normalization_dictionary(dict):

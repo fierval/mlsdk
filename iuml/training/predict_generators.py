@@ -14,8 +14,8 @@ import os
 import abc
 import cv2
 
-from iuml.tools.image_utils import get_image_files
-from iuml.tools.net import download_images
+from ..tools.image_utils import get_image_files
+from ..tools.net import download_images
 
 import keras.preprocessing.image as prep
 
