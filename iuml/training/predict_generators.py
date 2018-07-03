@@ -37,12 +37,12 @@ class IumlPredictionGenerator(prep.Iterator):
     '''
     Abstract class for internal generator for predictions
     '''
-    
+
     __metaclass__ = abc.ABCMeta
     def __init__(self, num_images, batch_size, image_shape, preprocessing_function = None, capacity = 50):
         '''
         Parameters:
-            num_images - number of images 
+            num_images - number of images
             batch_size - batch size
             image_shape - WxH image shape
             capacity - how many can we pre-load into memory
@@ -62,20 +62,21 @@ class IumlPredictionGenerator(prep.Iterator):
 
         # False is for the shuffle parameter
         super(IumlPredictionGenerator, self).__init__(num_images, batch_size, False, None)
-        
-    @staticmethod
-    def stack_images(image_list):
+
+    def stack_images(self, image_list):
         if isinstance(image_list, np.ndarray):
             return image_list
         else:
+            if self.need_reshape:
+                image_list = [cv2.resize(im, self.image_shape) for im in image_list]
             return np.vstack(np.expand_dims(image_list, axis=0))
-    
+
     def resize_if_needed(self, images):
         ims = images
 
         if self.need_reshape:
             ims = [cv2.resize(im, self.image_shape) for im in images]
-        
+
         return self.stack_images(ims)
 
     @abc.abstractmethod
@@ -104,7 +105,7 @@ class IumlPredictionGenerator(prep.Iterator):
         Should we apply reshaping?
         '''
         self.need_reshape = True if image.shape[:2][::-1] != self.image_shape else False
-    
+
     def _get_downloadable_range(self, index_array):
 
         leftover = self.capacity - self.internal_idx
@@ -115,16 +116,16 @@ class IumlPredictionGenerator(prep.Iterator):
 
             # if we are close to the end - just get remaining batches
             if index_array[leftover] + total_download > self.num_images:
-                
+
                 n_batches = (self.num_images - index_array[leftover] + self.batch_size - 1 + leftover) // self.batch_size
                 total_download = n_batches * self.batch_size
 
-                # this is the last time we are downloading. 
+                # this is the last time we are downloading.
                 # shrink capacity for further calculations
                 self.capacity = leftover + total_download
 
             idxs = np.mod(np.arange(index_array[leftover], index_array[leftover] + total_download), self.num_images)
-            
+
             return idxs, leftover
 
         return None
@@ -174,24 +175,24 @@ class InMemoryImageGenerator(IumlPredictionGenerator):
     def __init__(self, images, batch_size, image_shape, preprocessing_function = None, capacity=None):
         '''
         Parameters:
-            images - array-like of images 
+            images - array-like of images
             batch_size - batch size
             image_shape - WxHxC image shape
             capacity - unused
         '''
-        
+
         self.num_images = len(images)
 
         super(InMemoryImageGenerator, self).__init__(self.num_images, batch_size, image_shape, preprocessing_function, capacity=self.num_images)
- 
-        self.images = self.stack_images(images)
 
         # verify if we need reshaping - can do it right away since everything is already loaded
-        self.set_need_reshape(self.images[0])
+        self.set_need_reshape(images[0])
+
+        self.images = self.stack_images(images)
 
     def retrieve(self, index_array):
         return self.images[index_array]
-    
+
 class DirImageGenerator(IumlPredictionGenerator):
     '''
     Feed images already in the memory to the model
@@ -200,31 +201,31 @@ class DirImageGenerator(IumlPredictionGenerator):
     def __init__(self, dir, batch_size, image_shape, preprocessing_function = None, capacity=50):
         '''
         Parameters:
-            dir - path to images 
+            dir - path to images
             batch_size - batch size
             image_shape - WxH image shape
             capacity - should exeed or be equal to batch size
         '''
-        
+
         if not os.path.exists(dir):
             raise FileExistsError("directory does not exist:{}".format(dir))
 
         # without np.array we can't address to it through
-        #  self.image_files[index_array]        
+        #  self.image_files[index_array]
         self.image_files = np.array(get_image_files(dir))
 
         if len(self.image_files) == 0:
             raise FileNotFoundError("no files found in directory: {}".format(dir))
 
         self.num_images = len(self.image_files)
-        
+
         super(DirImageGenerator, self).__init__(self.num_images, batch_size, image_shape, preprocessing_function, capacity)
 
         # verify if we need reshaping - can do it right away by just reading one file
         self.set_need_reshape(cv2.imread(self.image_files[0]))
 
 
-    def retrieve(self, index_array):    
+    def retrieve(self, index_array):
         images = [cv2.imread(f) for f in self.image_files[index_array]]
         return images
 
@@ -241,7 +242,7 @@ class UrlImageGenerator(IumlPredictionGenerator):
             image_shape - WxH image shape
             capacity - should exeed or be equal to batch size
         '''
-        
+
         self.image_urls = np.array(urls)
 
         if len(self.image_urls) == 0:
@@ -253,7 +254,7 @@ class UrlImageGenerator(IumlPredictionGenerator):
 
         super(UrlImageGenerator, self).__init__(self.num_images, batch_size, image_shape, preprocessing_function, capacity)
 
-    def retrieve(self, index_array):    
+    def retrieve(self, index_array):
         images = download_images(self.image_urls[index_array], img_shape = self.image_shape)
         return images
 
@@ -271,7 +272,7 @@ if __name__ == '__main__':
                 image_shape - WxH image shape
                 capacity - should exeed or be equal to batch size
             '''
-        
+
             # images are reshaped when retrieved
             self.need_reshape = need_reshape
             self.num_images = num_images
@@ -352,7 +353,7 @@ if __name__ == '__main__':
     def main():
         # batch size same as capacity
         run_case(1, 24, 12, 12)
-        
+
         ## batch size same as length
         run_case(2, 12, 12, 15)
 
@@ -369,4 +370,4 @@ if __name__ == '__main__':
         run_case_predict_urls()
 
     main()
-                
+
