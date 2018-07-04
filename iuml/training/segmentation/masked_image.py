@@ -5,8 +5,8 @@ import cv2
 import random
 import numpy as np
 import glob
-import ..tools.validate as validate
-from ..tools.image_utils import get_image_files
+from ...tools import validate
+from ...tools.image_utils import get_image_files
 import copy
 import math
 

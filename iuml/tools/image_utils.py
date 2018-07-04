@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import cv2
 import glob
 import os
-import .validate as validate
+from . import validate
 import numpy as np
 import re
 

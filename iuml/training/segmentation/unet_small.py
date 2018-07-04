@@ -10,13 +10,13 @@ from keras.optimizers import *
 
 import os
 import numpy as np
-from ..training.train import TrainClassifierBase
+from ..train import TrainClassifierBase
 from .masked_image import MaskedImageDataGenerator
-import ...tools.validate as validate
+from ...tools import validate
 from ...tools.image_utils import get_image_files
 from sklearn.model_selection import train_test_split
 
-from ..training.utils import clean_training_validation_trees, create_preprocessing_config, load_normalization_dictionary
+from ..utils import clean_training_validation_trees, create_preprocessing_config, load_normalization_dictionary
 from .utils import *
 import math
 
