@@ -87,7 +87,7 @@ class Unet(TrainClassifierBase):
 
         self.preprocessing_file = os.path.join(self.train_dir, "preprocessing.json")
 
-    def split_train_val_data(self, data_root, val_fraction = 0.1):
+    def split_train_val_data(self, data_root, val_fraction = 0.1, do_not_zip_masks=False):
         '''
         Returns:
             (total_training_images, total_validation_images)
@@ -128,7 +128,7 @@ class Unet(TrainClassifierBase):
         print('Splitting into directories...')
         for dir, im_files, is_mask in zip(all_dirs, all_groups, [False, True, False, True]):
             print('Copying to: {}'.format(dir))
-            if not is_mask:
+            if not is_mask or do_not_zip_masks:
                 for src in im_files:
                     fn = os.path.split(src)[1]
                     dest = os.path.join(dir, fn)
