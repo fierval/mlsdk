@@ -66,7 +66,7 @@ def split_training_validation_data(data_root, out_data_root, validate_fraction=0
     class_names = [os.path.split(cn)[1] for cn in subfolders]
 
     if len(subfolders) == 0:
-        raise ValueError('No subfolders found. Perhaps {} does not exist'.format(train_data_root))
+        raise ValueError('No subfolders found. Perhaps {} does not exist'.format(data_root))
 
     # This shuffles and then splits datasets
     # the output is indexes into the dataset being split
